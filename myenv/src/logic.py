@@ -41,14 +41,17 @@ class Logic():
         # Dealer deals cards to both Player and Delaer
         self.dealer.deal_card(self.player)
         
+        
     def show_balance(self):
         # Show current player balance
         print(f"\nCurrent Balance: ${self.player.money}")
+        
         
     def show_hands(self):
         # Shows hidden dealer hand and complete Player hand
         print('\nDealer | ** ' + ' '.join(self.dealer.hand[1:]) + ' | ?')        
         print('Player | ' + ' '.join(card for card in self.player.hand) + ' | ' + self.player.card_sum())
+        
         
     def show_complete_hands(self):
         # Shows complete Dealer and Player hand
@@ -60,11 +63,11 @@ class Logic():
         player_decision = input("Would you like to double, hit, or stand? (d, h, s): ")
         
         if player_decision.lower() == 'd':
-            self.player.hit(self.player, self.dealer.base_deck)
+            self.player.hit(self.player, self.dealer.shoe)
             self.IN_GAME = False
             
         elif player_decision.lower() == 'h':
-            self.player.hit(self.player, self.dealer.base_deck)
+            self.player.hit(self.player, self.dealer.shoe)
             # Check if the player busted
             # If the player busts, end the game
             if self.player.bust():
@@ -88,7 +91,6 @@ class Logic():
             print('Dealer busted! You win')
             self.BUST = True
 
-    
         
     def check_winner(self):
         if int(self.player.card_sum()) > int(self.dealer.card_sum()):
@@ -101,16 +103,16 @@ class Logic():
             self.player.add_balance(self.player.bet_amount)
 
     
-    
-    
     def reshuffle(self):
         self.dealer.reshuffle()
+    
     
     def reset(self):
         self.player.reset_hand()
         self.dealer.reset_hand()
         self.IN_GAME = True
         self.BUST = False
+        
         
     def check_balance(self):
         if self.player.money <= 0:

@@ -9,6 +9,7 @@ class Player(Actor):
         self.money = money
         self.bet_amount = 0
         
+        
     def bet(self):
         while True:
             bet = input("\nHow much would you like to bet?: ")
@@ -24,5 +25,9 @@ class Player(Actor):
                     self.money -= self.bet_amount
                     break
             
+    def subtract_balance(self, money_subtracted):
+        self.money -= money_subtracted
+        
+        
     def add_balance(self, money_added):
         self.money += money_added

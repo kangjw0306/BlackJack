@@ -7,17 +7,20 @@ class Actor():
         self.isbust = False
         self.win = False        
         
+        
     # Resets the deck when starting a new game
     def reset_hand(self):
         self.hand = []
         self.isbust = False
         self.win = False
 
+
     # Deals a card to the individual and removes said card from base deck
     def hit(self, individual, deck):
         card = random.choice(deck)
         individual.hand.append(card)
         deck.remove(card)
+    
     
     # Returns the sum of the cards as a string
     def card_sum(self):
@@ -41,6 +44,7 @@ class Actor():
                 break
                 
         return str(card_sum)
+    
     
     # Checks if bust
     def bust(self):
