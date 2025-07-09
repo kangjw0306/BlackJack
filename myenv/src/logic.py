@@ -64,6 +64,8 @@ class Logic():
         
         if player_decision.lower() == 'd':
             self.player.hit(self.player, self.dealer.shoe)
+            self.player.subtract_balance(self.player.bet_amount)
+            self.player.bet_amount *= 2
             self.IN_GAME = False
             
         elif player_decision.lower() == 'h':
