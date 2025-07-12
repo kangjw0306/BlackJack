@@ -16,6 +16,9 @@ class Player(Actor):
             
             if bet.isalpha():
                 print("Please type a valid character")
+            elif int(bet) <= 0:
+                print("Please bet an amount greater than $0")
+            
             else:
                 self.bet_amount = int(bet)
             
