@@ -4,7 +4,6 @@ A simple CLI blackjack game made with Python.
 
 Currently supports hitting, standing, and doubling.  
 Splitting is currently being worked on.  
-Instant blackjack payout is currently being worked on.
 
 ---
 
