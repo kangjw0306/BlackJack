@@ -17,7 +17,6 @@ Instant blackjack payout is currently being worked on.
    - No side bets or insurance (yet...)  
 3. **Blackjack Definition**:  
    - Ace + 10-value card  
-   - No instant win or 3:2 payout (yet...)  
 4. **Player Options**:  
    - Hit, Stand, Double Down  
    - No splitting or surrender (yet...)  
