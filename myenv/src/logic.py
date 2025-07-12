@@ -91,17 +91,27 @@ class Logic():
         player_numbers = [card[1:] for card in self.player.hand]
         dealer_numbers = [card[1:] for card in self.dealer.hand]
         
+        player_blackjack = (
+            'A' in player_numbers and
+            any(face in player_numbers for face in ['10', 'J', 'Q', 'K'])
+        )
+        
+        dealer_blackjack = (
+            'A' in dealer_numbers and
+            any(face in dealer_numbers for face in ['10', 'J', 'Q', 'K'])
+        )
+        
         #Check for blackjack
-        if 'A' in player_numbers and any(face in player_numbers for face in ['10', 'J', 'Q', 'K']) and 'A' in dealer_numbers and any(face in dealer_numbers for face in ['10', 'J', 'Q', 'K']):
+        if player_blackjack and dealer_blackjack:
             self.dealer.blackjack = True
             self.player.blackjack = True
             self.show_complete_hands()
             print(f"Push! Your initial bet of ${self.player.bet_amount} has been returned to your account")
-        elif 'A' in dealer_numbers and any(face in dealer_numbers for face in ['10', 'J', 'Q', 'K']):
+        elif dealer_blackjack:
             self.dealer.blackjack = True
             self.show_complete_hands()
             print(f"Dealer blackjack! You lose!")
-        elif 'A' in player_numbers and any(face in player_numbers for face in ['10', 'J', 'Q', 'K']):
+        elif player_blackjack:
             self.player.blackjack = True
             self.show_complete_hands()            
             print(f"Blackjack! A balance of ${self.player.bet_amount * 1.5} has been added to your account")
