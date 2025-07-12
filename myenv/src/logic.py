@@ -60,7 +60,10 @@ class Logic():
 
         
     def decisions(self):
-        player_decision = input("Would you like to double, hit, or stand? (d, h, s): ")
+        self.player.turn += 1
+        
+        # CHANGE STRING TO "WOULD YOU LIKE TO DOUBLE, HIT, STAND, OR SPLIT (D, H, S, SPLIT)" ONCE SPLITTING IS IMPLEMENTED
+        player_decision = input("Would you like to double, hit, or stand (d, h, s): ")
         
         if player_decision.lower() == 'd':
             self.player.hit(self.player, self.dealer.shoe)
@@ -77,8 +80,42 @@ class Logic():
                 
         elif player_decision.lower() == 's':
             self.IN_GAME = False
+            
+            
+        elif player_decision.lower() == 'split':
+            if self.player.hand[0][1:] != self.player.hand[1][1:]:
+                print("Splitting is not allowed on your hand")
+            # WORKING ON SPLITTING
+            else:
+                pass
+        
+        else:
+            print("Please type a valid character")
+            
+        
+    def check_blackjack(self):
+        player_numbers = [card[1:] for card in self.player.hand]
+        dealer_numbers = [card[1:] for card in self.dealer.hand]
+        
+        #Check for blackjack
+        if 'A' in player_numbers and any(face in player_numbers for face in ['10', 'J', 'Q', 'K']) and 'A' in dealer_numbers and any(face in dealer_numbers for face in ['10', 'J', 'Q', 'K']):
+            self.dealer.blackjack = True
+            self.player.blackjack = True
+            self.show_complete_hands()
+            print(f"Push! Your initial bet of ${self.player.bet_amount} has been returned to your account")
+        elif 'A' in dealer_numbers and any(face in dealer_numbers for face in ['10', 'J', 'Q', 'K']):
+            self.dealer.blackjack = True
+            self.show_complete_hands()
+            print(f"Dealer blackjack! You lose!")
+        elif 'A' in player_numbers and any(face in player_numbers for face in ['10', 'J', 'Q', 'K']):
+            self.player.blackjack = True
+            self.show_complete_hands()            
+            print(f"Blackjack! A balance of ${self.player.bet_amount * 1.5} has been added to your account")
+            self.player.add_balance(self.player.bet_amount*1.5)
         
         
+           
+    
     def check_bust(self):
         # Check if player busted
         if self.player.isbust:
@@ -99,7 +136,7 @@ class Logic():
             print(f"You win! A balance of ${self.player.bet_amount * 2} has been added to your account")
             self.player.add_balance(self.player.bet_amount*2)
         elif int(self.player.card_sum()) < int(self.dealer.card_sum()):
-            print(f"You lost!")
+            print(f"You lose!")
         else:
             print(f"Push! Your initial bet of ${self.player.bet_amount} has been returned to your account")
             self.player.add_balance(self.player.bet_amount)
@@ -112,6 +149,8 @@ class Logic():
     def reset(self):
         self.player.reset_hand()
         self.dealer.reset_hand()
+        self.player.blackjack = False
+        self.dealer.blackjack = False
         self.IN_GAME = True
         self.BUST = False
         

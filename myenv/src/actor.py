@@ -6,6 +6,8 @@ class Actor():
         self.hand = []
         self.isbust = False
         self.win = False        
+        self.turn = 1
+        self.blackjack = False
         
         
     # Resets the deck when starting a new game

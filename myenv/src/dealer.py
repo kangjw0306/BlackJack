@@ -38,5 +38,5 @@ class Dealer(Actor):
     
     # Hits cards on dealer based on the dealer rule
     def dealer_rule(self):
-        while self.card_sum() <= 16:
+        while int(self.card_sum()) <= 16:
             self.hit(self, self.shoe)
