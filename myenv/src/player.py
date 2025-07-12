@@ -18,7 +18,6 @@ class Player(Actor):
                 print("Please type a valid character")
             elif int(bet) <= 0:
                 print("Please bet an amount greater than $0")
-            
             else:
                 self.bet_amount = int(bet)
             
@@ -27,6 +26,7 @@ class Player(Actor):
                 else:
                     self.money -= self.bet_amount
                     break
+            
             
     def subtract_balance(self, money_subtracted):
         self.money -= money_subtracted

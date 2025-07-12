@@ -15,7 +15,6 @@ class Logic():
         # Welcomes the player to Casino
         print("\n\n****** Welcome to the casino ******\n")
         
-       
         while True:
             # Asks if the player wants to play blackjack
             start_game = input("Start a blackjack game? (y/n): ")
@@ -70,25 +69,20 @@ class Logic():
             self.player.subtract_balance(self.player.bet_amount)
             self.player.bet_amount *= 2
             self.IN_GAME = False
-            
         elif player_decision.lower() == 'h':
             self.player.hit(self.player, self.dealer.shoe)
             # Check if the player busted
             # If the player busts, end the game
             if self.player.bust():
                 self.IN_GAME = False
-                
         elif player_decision.lower() == 's':
             self.IN_GAME = False
-            
-            
         elif player_decision.lower() == 'split':
             if self.player.hand[0][1:] != self.player.hand[1][1:]:
                 print("Splitting is not allowed on your hand")
             # WORKING ON SPLITTING
             else:
                 pass
-        
         else:
             print("Please type a valid character")
             
