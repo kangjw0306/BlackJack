@@ -74,6 +74,7 @@ class Logic():
             # Check if the player busted
             # If the player busts, end the game
             if self.player.bust():
+                self.player.isbust = True
                 self.IN_GAME = False
         elif player_decision.lower() == 's':
             self.IN_GAME = False
@@ -157,6 +158,7 @@ class Logic():
         self.dealer.blackjack = False
         self.IN_GAME = True
         self.BUST = False
+        self.player.turn = 1
         
         
     def check_balance(self):
