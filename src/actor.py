@@ -17,7 +17,8 @@ class Actor:
         self.win = False
 
     # Deals a card to the individual and removes said card from base deck
-    def hit(self, individual, deck):
+    @staticmethod
+    def hit(individual, deck):
         card = random.choice(deck)
         individual.hand.append(card)
         deck.remove(card)

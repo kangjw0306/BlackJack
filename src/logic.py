@@ -1,8 +1,4 @@
-from player import Player
-from dealer import Dealer
-
-
-class Logic():
+class Logic:
     def __init__(self, player, dealer):
         self.player = player
         self.dealer = dealer
@@ -27,7 +23,7 @@ class Logic():
                 print("Ok! Let's get started!")
                 break
             else:
-                print("Please type a vaild chracter\n")
+                print("Please type a valid character\n")
             
             
     def bet(self):
@@ -37,7 +33,7 @@ class Logic():
         
         
     def deal(self):
-        # Dealer deals cards to both Player and Delaer
+        # Dealer deals cards to both Player and Dealer
         self.dealer.deal_card(self.player)
         
         
