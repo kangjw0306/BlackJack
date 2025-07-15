@@ -1,9 +1,9 @@
 # Blackjack
 
-A simple CLI blackjack game made with Python.
+A simple CLI blackjack bot made with Python.
 
-Currently supports hitting, standing, and doubling.  
-Splitting is currently being worked on.  
+Currently, supports hitting, standing, and doubling.  
+Splitting is being worked on.  
 
 ---
 
@@ -29,4 +29,4 @@ Splitting is currently being worked on.
 Download all `.py` files and run:
 
 ```bash
-python3 main.py
+python3 brain.py
