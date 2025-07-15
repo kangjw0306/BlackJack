@@ -31,12 +31,11 @@ class Actor:
         for n in self.hand:
             if n[1:].isdigit():
                 card_sum += int(n[1:])
+            elif n[1:] == 'A':
+                a_count += 1
+                card_sum += 11
             else:
-                if n[1:] == 'A':
-                    a_count += 1
-                    card_sum += 11
-                else:
-                    card_sum += 10
+                card_sum += 10
 
         for _ in range(a_count):
             if card_sum > 21:
