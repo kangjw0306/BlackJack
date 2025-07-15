@@ -53,7 +53,7 @@ def read_output(process):
         line = line.strip()
         print(f"[GAME] {line}")  # Show the game output
 
-        # Parse delaer/player hands as they appear
+        # Parse dealer/player hands as they appear
         role, hand = parse_hands_from_line(line)
         if role == 'dealer':
             dealer_hand = hand
