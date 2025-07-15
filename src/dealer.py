@@ -21,7 +21,7 @@ class Dealer(Actor):
     # Reshuffles the deck by resetting it
     def reshuffle(self):
         if len(self.shoe) <= 0.25 * len(self.ORIGINAL_DECK):
-            self.shoe = self.ORIGINAL_DECK
+            self.shoe = self.ORIGINAL_DECK[:]
 
     # Starts the game by dealing cards to the player and dealer
     def deal_card(self, player):
