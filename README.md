@@ -26,7 +26,7 @@ Splitting is being worked on.
 
 ## To Run
 
-Download all `.py` files and run:
+Download all included files and run:
 
 ```bash
 python3 brain.py
