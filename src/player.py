@@ -11,7 +11,8 @@ class Player(Actor):
 
     def bet(self):
         while True:
-            bet = input("\nHow much would you like to bet?: ")
+            print("\nHow much would you like to bet?: ", flush=True)
+            bet = input().strip()
 
             if bet.isalpha():
                 print("Please type a valid character")

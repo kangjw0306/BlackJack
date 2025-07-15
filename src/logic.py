@@ -9,11 +9,12 @@ class Logic:
         
     def welcome(self):
         # Welcomes the player to Casino
-        print("\n\n****** Welcome to the casino ******\n")
+        print("\n\n****** Welcome to the casino ******\n", flush=True)
         
         while True:
             # Asks if the player wants to play blackjack
-            start_game = input("Start a blackjack game? (y/n): ")
+            print("Start a blackjack game? (y/n):")
+            start_game = input().strip()
         
             if start_game.lower() == 'n':
                 print("See you next time!")
@@ -58,7 +59,8 @@ class Logic:
         self.player.turn += 1
         
         # CHANGE STRING TO "WOULD YOU LIKE TO DOUBLE, HIT, STAND, OR SPLIT (D, H, S, SPLIT)" ONCE SPLITTING IS IMPLEMENTED
-        player_decision = input("Would you like to double, hit, or stand (d, h, s): ")
+        print("Would you like to double, hit, or stand (d, h, s): ")
+        player_decision = input().strip()
         
         if player_decision.lower() == 'd':
             self.player.hit(self.player, self.dealer.shoe)
