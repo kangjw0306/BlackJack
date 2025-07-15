@@ -6,7 +6,8 @@ from logic import Logic
 MONEY = 100
 DECK_NUMBER = 2
 
-if __name__ == '__main__':
+
+def main():
     player1 = Player(money=MONEY)
     dealer = Dealer(deck_number=DECK_NUMBER)
     game = Logic(player1, dealer)
@@ -58,3 +59,7 @@ if __name__ == '__main__':
         game.reshuffle()
         game.check_balance()
         game.reset()
+
+
+if __name__ == '__main__':
+    main()
