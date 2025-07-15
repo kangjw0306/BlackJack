@@ -2,14 +2,6 @@ import subprocess
 
 
 def read_output(process):
-    """
-    Read lines from the game's stdout until a prompt or end is detected.
-    Returns a string representing the game state:
-    - "start" for start prompt
-    - "bet" for bet prompt
-    - "decision" for hit/stand/double prompt
-    - "end" for game over or exit
-    """
     while True:
         line = process.stdout.readline()
         if not line:
