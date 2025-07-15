@@ -115,10 +115,7 @@ class Logic:
             self.show_complete_hands()            
             print(f"Blackjack! A balance of ${self.player.bet_amount * 1.5} has been added to your account")
             self.player.add_balance(self.player.bet_amount*1.5)
-        
-        
-           
-    
+
     def check_bust(self):
         # Check if player busted
         if self.player.isbust:
@@ -127,10 +124,11 @@ class Logic:
             print('You busted! You lose.')
             self.BUST = True
         # Check if dealer busted
-        elif self.player.isbust:
-            print('\nPlayer | ' + ' '.join(card for card in self.player.hand) + ' | ' + self.player.card_sum())
+        elif self.dealer.bust():
+            print('\nDealer | ' + ' '.join(card for card in self.dealer.hand) + ' | ' + self.dealer.card_sum())
             print('Player | ' + ' '.join(card for card in self.player.hand) + ' | ' + self.player.card_sum())
-            print('Dealer busted! You win')
+            print('Dealer busted! You win!')
+            self.player.add_balance(self.player.bet_amount * 2)
             self.BUST = True
 
         
