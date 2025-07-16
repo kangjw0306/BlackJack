@@ -3,6 +3,23 @@ import re
 from reader import get_action
 
 
+# Streak-based betting strategy
+class StreakBetting:
+    def __init__(self, base_bet=10):
+        self.streak = 0
+        self.base_bet = base_bet
+
+    def update_result(self, result):
+        if result == "win":
+            self.streak += 1
+        elif result == "lose":
+            self.streak = 0
+
+    def get_bet(self, balance):
+        bet = self.base_bet + self.streak * 2
+        return max(1, min(bet, balance))
+
+
 def hand_value(ranks):
     total = 0
     ace_count = 0
@@ -53,6 +70,12 @@ def read_output(process):
         line = line.strip()
         print(f"[GAME] {line}")  # Show the game output
 
+        if "Current Balance: $" in line:
+            match = re.search(r"Current Balance: \$([0-9]+(?:\.[0-9]+)?)", line)
+            if match:
+                current_balance = float(match.group(1))
+                return "balance_update", current_balance, None
+
         # Parse dealer/player hands as they appear
         role, hand = parse_hands_from_line(line)
         if role == 'dealer':
@@ -72,6 +95,12 @@ def read_output(process):
             else:
                 # If hands are missing, fallback to stand decision
                 return "decision", dealer_hand, player_hand
+        elif "You win" in line:
+            return "result", "win", None
+        elif "You busted!" in line or "You lose!" in line:
+            return "result", "lose", None
+        elif "Push!" in line:
+            return "result", "push", None
         elif "See you next time" in line or "You are out of money" in line:
             return "end", None, None
 
@@ -84,6 +113,9 @@ def send_input(process, text):
 
 def main():
     game_script = "src/main.py"
+    betting = StreakBetting()
+    balance = 100
+    last_bet = 10
 
     process = subprocess.Popen(
         ['python3', game_script],
@@ -97,19 +129,34 @@ def main():
     while True:
         state, dealer_hand, player_hand = read_output(process)
         if state == "start":
-            send_input(process, "y\n")  # Start game automatically
+            send_input(process, "y\n")
         elif state == "bet":
-            send_input(process, "10\n")  # Always bet 10 dollars
+            if balance < 1:
+                print(f"[BOT] Balance too low (${balance:.2f}). Exiting.")
+                send_input(process, "q\n")
+                break
+            last_bet = min(betting.get_bet(balance), balance)
+            send_input(process, f"{int(last_bet)}\n")
+        elif state == "balance_update":
+            balance = dealer_hand  # dealer_hand carries the balance value here
         elif state == "decision":
             if dealer_hand and player_hand:
-                # Get bot move based on strategy from reader.py
                 move = get_action(player_hand, dealer_hand)
                 if move not in ['h', 's', 'd']:
-                    move = 's'  # fallback to stand if invalid
+                    move = 's'
                 send_input(process, move + "\n")
             else:
-                # Missing hand info, default to stand
                 send_input(process, "s\n")
+        elif state == "result":
+            result = dealer_hand  # renamed from dealer_hand to result
+            if result == "win":
+                balance += last_bet
+                betting.update_result("win")
+            elif result == "lose":
+                balance -= last_bet
+                betting.update_result("lose")
+            elif result == "push":
+                betting.update_result("push")
         elif state == "end":
             print("[BOT] Game ended or exited.")
             break
