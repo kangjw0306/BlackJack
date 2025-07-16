@@ -7,7 +7,7 @@ Splitting is being worked on.
 
 ---
 
-## RULES:
+## GAME RULES:
 
 1. **Deck**: Two-deck shoe  
 2. **Initial Deal**:  
@@ -24,9 +24,22 @@ Splitting is being worked on.
 
 ---
 
+## Bot Rules
+
+1. Plays until balance is $0
+2. Follows baisic strategy without card counting
+
+---
+
 ## To Run
 
-Download all included files and run:
+To run the bot, download all included files and run:
 
 ```bash
 python3 brain.py
+```
+
+To run the blackjack game itself, run:
+```bash
+python3 src/main.py
+```
