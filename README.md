@@ -7,7 +7,7 @@ Splitting is being worked on.
 
 ---
 
-## GAME RULES:
+## Game Rules:
 
 1. **Deck**: Two-deck shoe  
 2. **Initial Deal**:  
