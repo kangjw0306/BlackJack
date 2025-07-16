@@ -1,5 +1,5 @@
 from actor import Actor
-
+import sys
 
 class Player(Actor):
     IN_GAME = True
@@ -11,8 +11,11 @@ class Player(Actor):
 
     def bet(self):
         while True:
-            print("\nHow much would you like to bet?: ", flush=True)
+            print("\nHow much would you like to bet?: (q to exit)")
             bet = input().strip()
+
+            if bet == 'q':
+                sys.exit()
 
             if bet.isalpha():
                 print("Please type a valid character")
