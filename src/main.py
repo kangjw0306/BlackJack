@@ -42,7 +42,7 @@ def main():
 
             if not game.player.isbust:
                 # Dealer rule
-                game.dealer.dealer_rule()
+                game.dealer_rule()
             # Check if player is bust first, then check if dealer is bust
             game.check_bust()
 

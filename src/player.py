@@ -1,6 +1,5 @@
 from actor import Actor
 from config import Config
-import sys
 
 class Player(Actor):
     IN_GAME = True

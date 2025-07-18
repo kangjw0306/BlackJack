@@ -6,8 +6,8 @@ class GameState:
 
     def start_new_round(self):
         """Initialize state variables for a new round."""
-        self.in_game = False
-        self.in_round = False
+        self.in_game = True
+        self.in_round = True
         self.bust = False
 
     def end_round(self):

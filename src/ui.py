@@ -1,5 +1,3 @@
-from typing import Any
-
 from gamestate import GameState
 
 class UI:
@@ -12,7 +10,7 @@ class UI:
     def get_start_game_input() -> str:
         """Asks if the player wants to play blackjack"""
         while True:
-            print('Start a blackjack game? (y/n):')
+            print('\nStart a blackjack game? (y/n):')
             choice = input().strip().lower()
 
             if choice in ['y', 'n']:
@@ -27,7 +25,7 @@ class UI:
     @staticmethod
     def show_hands(player: object, dealer: object) -> None:
         """Shows the hidden dealer hand and complete player hand"""
-        print(f"\nDealer | ** {' '.join(dealer.hand[1:])} | {dealer.card_sum()}")
+        print(f"\nDealer | ** {' '.join(dealer.hand[1:])} |")
         print(f"Player | {' '.join(card for card in player.hand)} | {player.card_sum()}")
 
     @staticmethod
@@ -71,7 +69,6 @@ class UI:
     @staticmethod
     def display_message(message: str) -> None:
         print(message)
-
 
     @staticmethod
     def print_push(bet_amount: int) -> None:
