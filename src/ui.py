@@ -1,5 +1,6 @@
 from gamestate import GameState
 
+
 class UI:
     @staticmethod
     def welcome() -> None:
@@ -36,6 +37,7 @@ class UI:
 
     @staticmethod
     def get_bet_input(player: object) -> int:
+        """Returns the amount player wants to bet."""
         while True:
             print('\nHow much would you like to bet?: (q to exit)')
             bet = input().strip().lower()
@@ -57,6 +59,7 @@ class UI:
 
     @staticmethod
     def get_decision_input() -> str:
+        """Returns player decision to either d, h, or s"""
         while True:
             print('Would you like to double, hit, or stand (d, h, s): ')
             decision = input().strip().lower()
@@ -67,36 +70,32 @@ class UI:
                 print('Please type a valid character')
 
     @staticmethod
-    def display_message(message: str) -> None:
-        print(message)
-
-    @staticmethod
     def print_push(bet_amount: int) -> None:
+        """Prints push text."""
         print(f"Push! Your initial bet of {bet_amount} has been returned to your account.")
 
     @staticmethod
-    def print_blackjack(individual: str, bet_amount: int=None) -> None:
+    def print_blackjack(individual: str, bet_amount: int = None) -> None:
+        """Prints blackjack text."""
         print(f"{individual} blackjack!" + 'You lose!' if individual == 'Dealer'
               else f'A balance of + ${bet_amount * 1.5} has been added to your account')
 
     @staticmethod
     def print_bust(individual: str) -> None:
+        """Prints bust text."""
         print(f"{individual} busted!" + 'You win!' if individual == 'Dealer' else 'You lose!')
 
     @staticmethod
     def print_win(bet_amount: int) -> None:
+        """Prints winning text."""
         print(f"You win! a Balance of ${bet_amount * 2} has been added to your account.")
 
     @staticmethod
     def print_lose():
+        """Prints lose text."""
         print("You lose!")
 
     @staticmethod
     def print_out_of_money():
+        """Prints out of money text."""
         print("\nYou are out of money :( See you again next time!")
-
-
-
-
-
-

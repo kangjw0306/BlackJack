@@ -14,33 +14,40 @@ class Logic:
         self.BUST = False
 
     def welcome(self) -> None:
+        """Welcome to the game."""
         UI.welcome()
         if UI.get_start_game_input() == 'n':
             self.IN_GAME = False
 
-    def bet(self):
+    def bet(self) -> None:
+        """Asks player to bet."""
         UI.show_player_balance(self.player)
         bet_amount = UI.get_bet_input(self.player)
         self.player.bet_amount = bet_amount
         self.player.subtract_balance(bet_amount)
 
-    def deal(self):
-        """Dealer deals cards to both player and dealer"""
+    def deal(self) -> None:
+        """Dealer deals cards to both player and dealer."""
         self.dealer.deal_card(self.player)
 
-    def dealer_rule(self):
+    def dealer_rule(self) -> None:
+        """Deal card to dealer based on dealer rules."""
         self.dealer.dealer_rule()
 
-    def show_balance(self):
+    def show_balance(self) -> None:
+        """Shows player's balance."""
         UI.show_player_balance(self.player)
 
-    def show_hands(self):
+    def show_hands(self) -> None:
+        """Shows player's and hidden dealer's hands."""
         UI.show_hands(self.player, self.dealer)
 
-    def show_complete_hands(self):
+    def show_complete_hands(self) -> None:
+        """Shows player's and dealer's hands."""
         UI.show_complete_hands(self.player, self.dealer)
 
-    def decisions(self):
+    def decisions(self) -> None:
+        """Asks for player's decision."""
         self.player.turn += 1
         decision = UI.get_decision_input()
 
@@ -58,7 +65,8 @@ class Logic:
         elif decision == 's':
             self.IN_ROUND = False
 
-    def check_blackjack(self):
+    def check_blackjack(self) -> None:
+        """Checks blackjack for player and dealer."""
         player_numbers = [card[1:] for card in self.player.hand]
         dealer_numbers = [card[1:] for card in self.dealer.hand]
 
@@ -89,7 +97,8 @@ class Logic:
             UI.print_blackjack(individual='Player', bet_amount=self.player.bet_amount)
             self.player.add_balance(self.player.bet_amount * 2.5)
 
-    def check_bust(self):
+    def check_bust(self) -> None:
+        """Checks if player or dealer busts."""
         # Check if player busted
         if self.player.isbust:
             UI.show_complete_hands(self.player, self.dealer)
@@ -102,7 +111,8 @@ class Logic:
             self.player.add_balance(self.player.bet_amount * 2)
             self.BUST = True
 
-    def check_winner(self):
+    def check_winner(self) -> None:
+        """Check if player or dealer wins."""
         player_sum = int(self.player.card_sum())
         dealer_sum = int(self.dealer.card_sum())
 
@@ -115,16 +125,19 @@ class Logic:
             UI.print_push(self.player.bet_amount)
             self.player.add_balance(self.player.bet_amount)
 
-    def reshuffle(self):
+    def reshuffle(self) -> None:
+        """Reshuffles deck."""
         self.dealer.reshuffle()
 
-    def reset(self):
+    def reset(self) -> None:
+        """Resets game conditions."""
         self.player.reset_hand()
         self.dealer.reset_hand()
         self.IN_ROUND = True
         self.BUST = False
 
-    def check_balance(self):
+    def check_balance(self) -> None:
+        """Checks player's balance."""
         if self.player.balance <= 0:
             UI.print_out_of_money()
             self.IN_GAME = False

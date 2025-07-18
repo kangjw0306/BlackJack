@@ -1,5 +1,7 @@
 import subprocess
 import re
+from typing import Any
+
 from reader import get_action
 
 
@@ -20,7 +22,7 @@ class StreakBetting:
         return max(1, min(bet, balance))
 
 
-def hand_value(ranks):
+def hand_value(ranks: object) -> int | Any:
     total = 0
     ace_count = 0
 
@@ -45,7 +47,7 @@ def hand_value(ranks):
     return total
 
 
-def parse_hands_from_line(line):
+def parse_hands_from_line(line: object) -> tuple[str, Any] | tuple[str, list[Any]] | tuple[None, None]:
     if line.startswith("Dealer |"):
         # Match all cards after "** " or without it, to get dealer visible cards
         cards = re.findall(r"[♠♦♣♥](\d+|[JQKA])", line)
@@ -57,6 +59,7 @@ def parse_hands_from_line(line):
         if cards:
             return "player", cards
     return None, None
+
 
 def read_output(process):
     dealer_hand = None
@@ -105,7 +108,7 @@ def read_output(process):
             return "end", None, None
 
 
-def send_input(process, text):
+def send_input(process: object, text: object) -> None:
     process.stdin.write(text)
     process.stdin.flush()
     print(f"[BOT] {text.strip()}")

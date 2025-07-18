@@ -9,10 +9,8 @@ class Player(Actor):
         self.balance = money
         self.bet_amount = 0
 
-
-
-    def subtract_balance(self, money_subtracted):
+    def subtract_balance(self, money_subtracted: object) -> None:
         self.balance -= money_subtracted
 
-    def add_balance(self, money_added):
+    def add_balance(self, money_added: object) -> None:
         self.balance += money_added

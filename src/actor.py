@@ -10,23 +10,23 @@ class Actor:
         self.turn = 1
         self.blackjack = False
 
-    # Resets the deck when starting a new game
-    def reset_hand(self):
+    def reset_hand(self) -> None:
+        """Reset the hand to its initial state."""
         self.hand = []
         self.isbust = False
         self.win = False
         self.blackjack = False
         self.turn = 1
 
-    # Deals a card to the individual and removes said card from base deck
     @staticmethod
-    def hit(individual, deck):
+    def hit(individual: object, deck: object) -> None:
+        """Deals a card to the individual and removes said card from base deck"""
         card = random.choice(deck)
         individual.hand.append(card)
         deck.remove(card)
 
-    # Returns the sum of the cards as a string
-    def card_sum(self):
+    def card_sum(self) -> str:
+        """Calculates the sum of all cards in hand and returns it as a string."""
         card_sum = 0
         a_count = 0
 
@@ -48,7 +48,8 @@ class Actor:
         return str(card_sum)
 
     # Checks if bust
-    def bust(self):
+    def bust(self) -> bool:
+        """Calculates if the hand is bust or not."""
         if int(self.card_sum()) > 21:
             self.isbust = True
             return True

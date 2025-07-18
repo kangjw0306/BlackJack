@@ -41,21 +41,20 @@ class Dealer(Actor):
 
         self.ORIGINAL_DECK = self.shoe[:]
 
-    # Reshuffles the deck by resetting it
-    def reshuffle(self):
+    def reshuffle(self) -> None:
+        """Reshuffles the deck."""
         if len(self.shoe) <= 0.25 * len(self.ORIGINAL_DECK):
             self.shoe = self.ORIGINAL_DECK[:]
 
     # Starts the game by dealing cards to the player and dealer
-    def deal_card(self, player):
-        # Deal player cards
+    def deal_card(self, player: object) -> None:
+        """Deals cards to both the player and dealer."""
         for _ in range(2):
             self.hit(player, self.shoe)
-        # Deal dealer cards
         for _ in range(2):
             self.hit(self, self.shoe)
 
-    # Hits cards on dealer based on the dealer rule
-    def dealer_rule(self):
+    def dealer_rule(self) -> None:
+        """Hits cards on dealer based on dealer rules."""
         while int(self.card_sum()) <= 16:
             self.hit(self, self.shoe)

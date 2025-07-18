@@ -1,18 +1,19 @@
 import csv
+from typing import Any
 
 
-def load_strategy(filename):
+def load_strategy(filename: object) -> dict[Any, Any]:
     strategy = {}
     with open(filename, 'r') as csvfile:
         reader = csv.reader(csvfile)
         headers = next(reader)[1:]
-        #print(f"[DEBUG] Strategy file {filename} headers: {headers}")
+        # print(f"[DEBUG] Strategy file {filename} headers: {headers}")
 
         for row in reader:
             player_sum = row[0]
             strategy[player_sum] = dict(zip(headers, row[1:]))
 
-        #print(f"[DEBUG] Strategy keys: {list(strategy.keys())}")
+        # print(f"[DEBUG] Strategy keys: {list(strategy.keys())}")
         return strategy
 
 
@@ -71,8 +72,8 @@ def get_action(player_hand, dealer_card):
     ranks = [normalize_rank(card) for card in player_hand]
     dealer_card = normalize_card(dealer_card)
 
-    #print(f"[DEBUG] Player hand: {player_hand} -> ranks: {ranks}")
-    #print(f"[DEBUG] Dealer card: {dealer_card}")
+    # print(f"[DEBUG] Player hand: {player_hand} -> ranks: {ranks}")
+    # print(f"[DEBUG] Dealer card: {dealer_card}")
 
     if is_soft_hand(ranks):
         non_ace = [r for r in ranks if r != 'A']
@@ -82,13 +83,13 @@ def get_action(player_hand, dealer_card):
         else:
             key = 'A' + non_ace[0]
 
-        #print(f"[DEBUG] Soft hand key: {key}")
+        # print(f"[DEBUG] Soft hand key: {key}")
         action = SOFT_HAND_STRATEGY.get(key, {}).get(dealer_card, 'H')
-        #print(f"[DEBUG] Soft hand action: {action}")
+        # print(f"[DEBUG] Soft hand action: {action}")
         return action.lower()
     else:
         total = str(hand_value(ranks))
-        #print(f"[DEBUG] Hard hand total: {total}")
+        # print(f"[DEBUG] Hard hand total: {total}")
         action = HARD_HAND_STRATEGY.get(total, {}).get(dealer_card, 'H')
-        #print(f"[DEBUG] Hard hand action: {action}")
+        # print(f"[DEBUG] Hard hand action: {action}")
         return action.lower()
