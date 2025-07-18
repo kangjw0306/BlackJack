@@ -8,7 +8,8 @@ class Logic:
         self.player = player
         self.dealer = dealer
 
-    def welcome(self) -> None:
+    @staticmethod
+    def welcome() -> None:
         """Welcome to the game."""
         UI.welcome()
         if UI.get_start_game_input() == 'n':

@@ -46,7 +46,6 @@ class UI:
             if bet == 'q':
                 import sys
                 sys.exit()
-
             try:
                 bet_amount = int(bet)
                 if bet_amount <= 0:

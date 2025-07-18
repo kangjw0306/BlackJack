@@ -45,7 +45,6 @@ class Dealer(Actor):
         if len(self.shoe) <= 0.25 * len(self.ORIGINAL_DECK):
             self.shoe = self.ORIGINAL_DECK[:]
 
-    # Starts the game by dealing cards to the player and dealer
     def deal_card(self, player: object) -> None:
         """Deals cards to both the player and dealer."""
         for _ in range(2):
