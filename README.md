@@ -121,15 +121,7 @@ The game can be configured using the `config.toml` file. Key settings include:
 
 ## License
 
-This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. This means you can:
-
-- Use the code for personal and educational purposes
-- Modify and distribute the code
-- Create derivative works
-
-But you cannot:
-- Use the code for commercial purposes
-- Sell the code or derivative works
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License.
 
 For more details, see the [Creative Commons BY-NC 4.0 License](https://creativecommons.org/licenses/by-nc/4.0/).
 
