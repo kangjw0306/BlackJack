@@ -1,5 +1,6 @@
 class GameState:
     def __init__(self):
+        """Initialize game state."""
         self.in_game = True
         self.in_round = True
         self.bust = False

@@ -4,6 +4,7 @@ import random
 class Actor:
 
     def __init__(self):
+        """Initializes the actor."""
         self.hand = []
         self.isbust = False
         self.win = False

@@ -4,6 +4,7 @@ from logic import Logic
 
 
 def main():
+    """Main function."""
     player1 = Player()
     dealer = Dealer()
     game = Logic(player1, dealer)

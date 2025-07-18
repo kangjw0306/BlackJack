@@ -3,6 +3,7 @@ from ui import UI
 
 class Logic:
     def __init__(self, player, dealer):
+        """Initializes the logic."""
         self.player = player
         self.dealer = dealer
         self.IN_GAME = True

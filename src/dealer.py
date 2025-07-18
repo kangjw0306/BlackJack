@@ -1,5 +1,3 @@
-import numbers
-
 from actor import Actor
 from config import Config
 from enum import Enum
@@ -30,6 +28,7 @@ class Number(Enum):
 
 class Dealer(Actor):
     def __init__(self):
+        """Initializes the dealer."""
         super().__init__()
         self.shoe = []
 
