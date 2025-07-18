@@ -61,7 +61,7 @@ A simple command-line blackjack bot made with Python. Features both an interacti
 ### Running the Bot
 To run the automated blackjack bot:
 ```bash
-python3 brain.py
+python3 bot/brain.py
 ```
 
 The bot will:
