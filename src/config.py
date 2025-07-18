@@ -1,5 +1,10 @@
 # Configure the constants in the blackjack game
+import tomllib
+
 
 class Config:
-    DECK_NUMBER = 2
-    INITIAL_BALANCE = 100
+    with open("config.toml", 'rb') as f:
+        config = tomllib.load(f)
+
+    DECK_NUMBER = config['game']['deck_count']
+    INITIAL_BALANCE = config['game']['initial_balance']

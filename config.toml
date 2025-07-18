@@ -1,0 +1,4 @@
+[game]
+# Game configuration settings
+deck_count = 2
+initial_balance = 100
