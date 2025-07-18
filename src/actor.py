@@ -19,7 +19,7 @@ class Actor:
         self.turn = 1
 
     @staticmethod
-    def hit(individual: object, deck: object) -> None:
+    def hit(individual: object, deck: list[str]) -> None:
         """Deals a card to the individual and removes said card from base deck"""
         card = random.choice(deck)
         individual.hand.append(card)

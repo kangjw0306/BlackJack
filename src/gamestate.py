@@ -1,20 +1,21 @@
 class GameState:
-    def __init__(self):
-        """Initialize game state."""
-        self.in_game = True
-        self.in_round = True
-        self.bust = False
+    in_game = True
+    in_round = True
+    bust = False
 
-    def start_new_round(self):
+    @staticmethod
+    def start_new_round():
         """Initialize state variables for a new round."""
-        self.in_game = True
-        self.in_round = True
-        self.bust = False
+        GameState.in_game = True
+        GameState.in_round = True
+        GameState.bust = False
 
-    def end_round(self):
+    @staticmethod
+    def end_round():
         """End the current round."""
-        self.in_round = False
+        GameState.in_round = False
 
-    def end_game(self):
+    @staticmethod
+    def end_game():
         """End the entire game."""
-        self.in_game = False
+        GameState.in_game = False

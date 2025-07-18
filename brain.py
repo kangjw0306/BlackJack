@@ -132,7 +132,6 @@ def main():
     game_script = "src/main.py"
     betting = StreakBetting()
     current_balance = None  # Will be read from command line
-    last_bet = 10
 
     process = subprocess.Popen(
         ['python3', game_script],

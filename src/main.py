@@ -1,6 +1,7 @@
 from player import Player
 from dealer import Dealer
 from logic import Logic
+from gamestate import GameState
 
 
 def main():
@@ -11,12 +12,15 @@ def main():
 
     game.welcome()
 
-    while game.IN_GAME:
+    # Debug: Print GameState attributes to diagnose missing in_game
+    print("GameState attributes:", dir(GameState))
+
+    while GameState.in_game:
         game.bet()
         game.deal()
         game.show_balance()
 
-        while game.IN_ROUND:
+        while GameState.in_round:
             if game.player.turn == 1:
                 game.check_blackjack()
                 if game.player.blackjack or game.dealer.blackjack:
@@ -30,7 +34,7 @@ def main():
                 game.dealer_rule()
             game.check_bust()
 
-        if not game.BUST and not game.player.blackjack and not game.dealer.blackjack:
+        if not GameState.bust and not game.player.blackjack and not game.dealer.blackjack:
             game.show_complete_hands()
             game.check_winner()
 

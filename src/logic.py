@@ -1,4 +1,5 @@
 from ui import UI
+from gamestate import GameState
 
 
 class Logic:
@@ -6,15 +7,12 @@ class Logic:
         """Initializes the logic."""
         self.player = player
         self.dealer = dealer
-        self.IN_GAME = True
-        self.IN_ROUND = True
-        self.BUST = False
 
     def welcome(self) -> None:
         """Welcome to the game."""
         UI.welcome()
         if UI.get_start_game_input() == 'n':
-            self.IN_GAME = False
+            GameState.end_game()
 
     def bet(self) -> None:
         """Asks player to bet."""
@@ -52,15 +50,15 @@ class Logic:
             self.player.hit(self.player, self.dealer.shoe)
             self.player.subtract_balance(self.player.bet_amount)
             self.player.bet_amount *= 2
-            self.IN_ROUND = False
+            GameState.end_round()
         elif decision == 'h':
             self.player.hit(self.player, self.dealer.shoe)
-            # Check if player busted, if bust end game
+            # Check if player busted, if bust end round
             if self.player.bust():
                 self.player.isbust = True
-                self.IN_ROUND = False
+                GameState.end_round()
         elif decision == 's':
-            self.IN_ROUND = False
+            GameState.end_round()
 
     def check_blackjack(self) -> None:
         """Checks blackjack for player and dealer."""
@@ -100,13 +98,13 @@ class Logic:
         if self.player.isbust:
             UI.show_complete_hands(self.player, self.dealer)
             UI.print_bust('You')
-            self.BUST = True
+            GameState.bust = True
         # Check if dealer busted
         elif self.dealer.bust():
             UI.show_complete_hands(self.player, self.dealer)
             UI.print_bust('Dealer')
             self.player.add_balance(self.player.bet_amount * 2)
-            self.BUST = True
+            GameState.bust = True
 
     def check_winner(self) -> None:
         """Check if player or dealer wins."""
@@ -130,11 +128,10 @@ class Logic:
         """Resets game conditions."""
         self.player.reset_hand()
         self.dealer.reset_hand()
-        self.IN_ROUND = True
-        self.BUST = False
+        GameState.start_new_round()
 
     def check_balance(self) -> None:
         """Checks player's balance."""
         if self.player.balance <= 0:
             UI.print_out_of_money()
-            self.IN_GAME = False
+            GameState.end_game()
