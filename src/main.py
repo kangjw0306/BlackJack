@@ -40,6 +40,8 @@ def main():
 
         game.reshuffle()
         game.check_balance()
+        if not GameState.in_game:
+            break
         game.reset()
 
 
