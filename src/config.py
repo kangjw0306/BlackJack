@@ -8,3 +8,4 @@ class Config:
 
     DECK_NUMBER = config['game']['deck_count']
     INITIAL_BALANCE = config['game']['initial_balance']
+    BASE_BET = config['game']['base_bet']

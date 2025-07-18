@@ -4,6 +4,7 @@ import logging
 from typing import Any
 
 from reader import get_action
+from src import config
 
 # Configure logging
 logging.basicConfig(
@@ -18,7 +19,7 @@ logging.basicConfig(
 
 # Streak-based betting strategy
 class StreakBetting:
-    def __init__(self, base_bet=10):
+    def __init__(self, base_bet=config.Config.BASE_BET):
         self.streak = 0
         self.base_bet = base_bet
 

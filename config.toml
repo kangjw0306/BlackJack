@@ -2,3 +2,4 @@
 # Game configuration settings
 deck_count = 2
 initial_balance = 100
+base_bet = 10
