@@ -1,3 +1,22 @@
+class GameLogic:
+    pass
+
+
+class UI:
+    pass
+
+
+class GameState:
+    pass
+
+
+
+
+
+
+
+
+
 class Logic:
     def __init__(self, player, dealer):
         self.player = player

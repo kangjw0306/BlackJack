@@ -1,15 +1,11 @@
 from player import Player
 from dealer import Dealer
-
 from logic import Logic
-
-MONEY = 100
-DECK_NUMBER = 2
 
 
 def main():
-    player1 = Player(money=MONEY)
-    dealer = Dealer(deck_number=DECK_NUMBER)
+    player1 = Player()
+    dealer = Dealer()
     game = Logic(player1, dealer)
 
     # Welcome the player

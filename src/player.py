@@ -1,10 +1,11 @@
 from actor import Actor
+from config import Config
 import sys
 
 class Player(Actor):
     IN_GAME = True
 
-    def __init__(self, money):
+    def __init__(self, money=Config.INITIAL_BALANCE):
         super().__init__()
         self.money = money
         self.bet_amount = 0

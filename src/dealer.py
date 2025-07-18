@@ -1,19 +1,16 @@
 from actor import Actor
+from config import Config
 
 
 class Dealer(Actor):
-    SUITS = ['♣', '♦', '♥', '♠']
-    NUMBERS = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K']
-
-    def __init__(self, deck_number):
+    def __init__(self):
         super().__init__()
-        self.deck_number = deck_number
         self.shoe = []
 
         # Creates the base deck based on the number of standard decks used
-        for _ in range(self.deck_number):
-            for s in self.SUITS:
-                for n in self.NUMBERS:
+        for _ in range(Config.DECK_NUMBER):
+            for s in Config.SUITS:
+                for n in Config.NUMBERS:
                     self.shoe.append(s + n)
 
         self.ORIGINAL_DECK = self.shoe[:]
