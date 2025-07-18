@@ -84,12 +84,14 @@ This launches the interactive game where you can:
 
 ```
 BlackJack/
-├── brain.py              # Automated bot implementation
+├── bot/
+│   ├── brain.py          # Automated bot implementation
+│   └── reader.py         # Strategy parsing and hand analysis
 ├── src/
-│   └── main.py          # Interactive game implementation
-├── config.toml          # Game configuration settings
-├── pyproject.toml       # Python project configuration
-└── README.md           # This file
+│   └── main.py           # Interactive game implementation
+├── config.toml           # Game configuration settings
+├── pyproject.toml        # Python project configuration
+└── README.md             # This file
 ```
 
 ## Configuration
