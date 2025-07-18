@@ -80,7 +80,7 @@ class UI:
     @staticmethod
     def print_bust(individual: str) -> None:
         """Prints bust text."""
-        print(f"{individual} busted!" + 'You win!' if individual == 'Dealer' else 'You lose!')
+        print(f"{individual} busted!" + ' You win!' if individual == 'Dealer' else ' You lose!')
 
     @staticmethod
     def print_win(bet_amount: int) -> None:
