@@ -2,7 +2,6 @@ import random
 
 
 class Actor:
-
     def __init__(self):
         """Initializes the actor."""
         self.hand = []
@@ -48,7 +47,6 @@ class Actor:
 
         return str(card_sum)
 
-    # Checks if bust
     def bust(self) -> bool:
         """Calculates if the hand is bust or not."""
         if int(self.card_sum()) > 21:
