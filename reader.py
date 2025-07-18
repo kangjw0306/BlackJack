@@ -2,7 +2,7 @@ import csv
 from typing import Any
 
 
-def load_strategy(filename: object) -> dict[Any, Any]:
+def load_strategy(filename: str) -> dict[Any, Any]:
     strategy = {}
     with open(filename, 'r') as csvfile:
         reader = csv.reader(csvfile)
@@ -36,7 +36,7 @@ def normalize_rank(card):
     # Extract rank from card string like "♦Q" -> "Q"
     # Remove all non-alphanumeric characters and return the rank
     import re
-    rank = re.sub(r'[^\w]', '', card)
+    rank = re.sub(r'\W', '', card)
     return rank if rank else card
 
 

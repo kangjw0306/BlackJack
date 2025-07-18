@@ -1,8 +1,19 @@
 import subprocess
 import re
+import logging
 from typing import Any
 
 from reader import get_action
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('bot.log'),
+        logging.StreamHandler()
+    ]
+)
 
 
 # Streak-based betting strategy
@@ -22,7 +33,7 @@ class StreakBetting:
         return max(1, min(bet, balance))
 
 
-def hand_value(ranks: object) -> int | Any:
+def hand_value(ranks: list) -> int | Any:
     total = 0
     ace_count = 0
 
@@ -36,7 +47,7 @@ def hand_value(ranks: object) -> int | Any:
             try:
                 total += int(r)
             except ValueError:
-                print(f"[ERROR] Unexpected rank: '{r}'")
+                logging.error(f"Unexpected rank: '{r}'")
                 total += 0  # safe fallback
 
     # Adjust for Aces if total > 21
@@ -47,7 +58,7 @@ def hand_value(ranks: object) -> int | Any:
     return total
 
 
-def parse_hands_from_line(line: object) -> tuple[str, Any] | tuple[str, list[Any]] | tuple[None, None]:
+def parse_hands_from_line(line: str) -> tuple[str, Any] | tuple[str, list[Any]] | tuple[None, None]:
     if line.startswith("Dealer |"):
         # Match all cards after "** " or without it, to get dealer visible cards
         cards = re.findall(r"[♠♦♣♥](\d+|[JQKA])", line)
@@ -68,13 +79,14 @@ def read_output(process):
     while True:
         line = process.stdout.readline()
         if not line:
+            logging.info("Process output stream ended")
             return "end", None, None  # Process ended
 
         line = line.strip()
         print(f"[GAME] {line}")  # Show the game output
 
-        if "Current Balance: $" in line:
-            match = re.search(r"Current Balance: \$([0-9]+(?:\.[0-9]+)?)", line)
+        if "Current Balance: " in line:
+            match = re.search(r"Current Balance: ([0-9]+(?:\.[0-9]+)?)", line)
             if match:
                 current_balance = float(match.group(1))
                 return "balance_update", current_balance, None
@@ -105,19 +117,20 @@ def read_output(process):
         elif "Push!" in line:
             return "result", "push", None
         elif "See you next time" in line or "You are out of money" in line:
+            logging.info(f"Game over message detected: {line}")
             return "end", None, None
 
 
 def send_input(process: object, text: object) -> None:
     process.stdin.write(text)
     process.stdin.flush()
-    print(f"[BOT] {text.strip()}")
+    logging.info(f"Bot input: {text.strip()}")
 
 
 def main():
     game_script = "src/main.py"
     betting = StreakBetting()
-    balance = 100
+    current_balance = None  # Will be read from command line
     last_bet = 10
 
     process = subprocess.Popen(
@@ -130,39 +143,69 @@ def main():
     )
 
     while True:
-        state, dealer_hand, player_hand = read_output(process)
+        state, value1, value2 = read_output(process)
+
         if state == "start":
             send_input(process, "y\n")
-        elif state == "bet":
-            if balance < 1:
-                print(f"[BOT] Balance too low (${balance:.2f}). Exiting.")
-                send_input(process, "q\n")
-                break
-            last_bet = min(betting.get_bet(balance), balance)
-            send_input(process, f"{int(last_bet)}\n")
+
         elif state == "balance_update":
-            balance = dealer_hand  # dealer_hand carries the balance value here
+            # Bot reads balance from command line output, just like a human would
+            current_balance = value1
+            logging.info(f"Read balance from output: ${current_balance:.2f}")
+
+        elif state == "bet":
+            # Bot must have seen the balance from the command line before betting
+            if current_balance is None:
+                logging.warning("Haven't seen balance yet, defaulting to minimum bet")
+                last_bet = 1
+            elif current_balance <= 0:
+                logging.info(
+                    f"Balance is ${current_balance:.2f}. Bot should exit, but waiting for game to end naturally.")
+                # Don't send 'q' immediately, let the game handle the zero balance
+                last_bet = 1  # Try to bet minimum, game will handle the error
+            else:
+                # Calculate bet amount based on what we read from the screen
+                bet_amount = betting.get_bet(current_balance)
+                last_bet = min(bet_amount, current_balance)
+                logging.info(f"Saw balance: ${current_balance:.2f}, Betting: ${last_bet}")
+
+            send_input(process, f"{int(last_bet)}\n")
+
         elif state == "decision":
+            dealer_hand = value1
+            player_hand = value2
+
             if dealer_hand and player_hand:
                 move = get_action(player_hand, dealer_hand)
                 if move not in ['h', 's', 'd']:
                     move = 's'
+                logging.info(
+                    f"Reading cards from screen - Player: {player_hand}, Dealer: {dealer_hand}, Action: {move}")
                 send_input(process, move + "\n")
             else:
+                logging.warning("Couldn't read cards clearly, standing")
                 send_input(process, "s\n")
+
         elif state == "result":
-            result = dealer_hand  # renamed from dealer_hand to result
+            result = value1
+            logging.info(f"Read game result from screen: {result}")
+
+            # Update betting strategy based on result
             if result == "win":
-                balance += last_bet
                 betting.update_result("win")
             elif result == "lose":
-                balance -= last_bet
                 betting.update_result("lose")
             elif result == "push":
                 betting.update_result("push")
+
         elif state == "end":
-            print("[BOT] Game ended or exited.")
+            logging.info("Game ended or exited.")
             break
+
+    # Ensure all logs are flushed before exiting
+    logging.info("Bot session completed.")
+    for handler in logging.getLogger().handlers:
+        handler.flush()
 
     process.wait()
 
