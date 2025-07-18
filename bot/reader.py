@@ -14,8 +14,8 @@ def load_strategy(filename: str) -> dict[Any, Any]:
 
         return strategy
 
-HARD_HAND_STRATEGY: dict[Any, Any] = load_strategy("../data/hard_total.csv")
-SOFT_HAND_STRATEGY: dict[Any, Any] = load_strategy("../data/soft_total.csv")
+HARD_HAND_STRATEGY: dict[Any, Any] = load_strategy("data/hard_total.csv")
+SOFT_HAND_STRATEGY: dict[Any, Any] = load_strategy("data/soft_total.csv")
 
 def normalize_card(card: object) -> str:
     if isinstance(card, str) and len(card) > 2:
