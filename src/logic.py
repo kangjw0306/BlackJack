@@ -1,10 +1,6 @@
 from ui import UI
 
 
-class GameLogic:
-    pass
-
-
 class Logic:
     def __init__(self, player, dealer):
         self.player = player

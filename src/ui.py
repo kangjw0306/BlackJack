@@ -1,6 +1,3 @@
-from gamestate import GameState
-
-
 class UI:
     @staticmethod
     def welcome() -> None:
