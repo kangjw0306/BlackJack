@@ -122,7 +122,7 @@ def read_output(process):
             return "end", None, None
 
 
-def send_input(process: object, text: object) -> None:
+def send_input(process: subprocess, text: str) -> None:
     process.stdin.write(text)
     process.stdin.flush()
     logging.info(f"Bot input: {text.strip()}")

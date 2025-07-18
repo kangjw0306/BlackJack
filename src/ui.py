@@ -1,3 +1,7 @@
+from src.player import Player
+from src.dealer import Dealer
+
+
 class UI:
     @staticmethod
     def welcome() -> None:
@@ -16,24 +20,24 @@ class UI:
             print('Please enter y or n.')
 
     @staticmethod
-    def show_player_balance(player: object) -> None:
+    def show_player_balance(player: Player) -> None:
         """Shows the balance of the player"""
         print(f"\nCurrent Balance: {player.balance}")
 
     @staticmethod
-    def show_hands(player: object, dealer: object) -> None:
+    def show_hands(player: Player, dealer: Dealer) -> None:
         """Shows the hidden dealer hand and complete player hand"""
         print(f"\nDealer | ** {' '.join(dealer.hand[1:])} |")
         print(f"Player | {' '.join(card for card in player.hand)} | {player.card_sum()}")
 
     @staticmethod
-    def show_complete_hands(player: object, dealer: object) -> None:
+    def show_complete_hands(player: Player, dealer: Dealer) -> None:
         """Shows complete dealer and player hand"""
         print('\nDealer | ' + ' '.join(card for card in dealer.hand) + ' | ' + dealer.card_sum())
         print('Player | ' + ' '.join(card for card in player.hand) + ' | ' + player.card_sum())
 
     @staticmethod
-    def get_bet_input(player: object) -> int:
+    def get_bet_input(player: Player) -> int:
         """Returns the amount player wants to bet."""
         while True:
             print('\nHow much would you like to bet?: (q to exit)')
