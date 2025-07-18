@@ -15,6 +15,8 @@ class Actor:
         self.hand = []
         self.isbust = False
         self.win = False
+        self.blackjack = False
+        self.turn = 1
 
     # Deals a card to the individual and removes said card from base deck
     @staticmethod

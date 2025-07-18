@@ -150,12 +150,9 @@ class Logic:
     def reset(self):
         self.player.reset_hand()
         self.dealer.reset_hand()
-        self.player.blackjack = False
-        self.dealer.blackjack = False
         self.IN_GAME = True
         self.BUST = False
-        self.player.turn = 1
-        
+
         
     def check_balance(self):
         if self.player.money <= 0:
