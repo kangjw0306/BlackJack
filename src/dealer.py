@@ -1,5 +1,32 @@
+import numbers
+
 from actor import Actor
 from config import Config
+from enum import Enum
+
+
+class Suit(Enum):
+    CLUBS = '♣'
+    DIAMONDS = '♦'
+    HEARTS = '♥'
+    SPADES = '♠'
+
+
+class Number(Enum):
+    ACE = 'A'
+    TWO = '2'
+    THREE = '3'
+    FOUR = '4'
+    FIVE = '5'
+    SIX = '6'
+    SEVEN = '7'
+    EIGHT = '8'
+    NINE = '9'
+    TEN = '10'
+    JACK = 'J'
+    QUEEN = 'Q'
+    KING = 'K'
+
 
 
 class Dealer(Actor):
@@ -9,9 +36,9 @@ class Dealer(Actor):
 
         # Creates the base deck based on the number of standard decks used
         for _ in range(Config.DECK_NUMBER):
-            for s in Config.SUITS:
-                for n in Config.NUMBERS:
-                    self.shoe.append(s + n)
+            for suit in Suit:
+                for number in Number:
+                    self.shoe.append(suit.value + number.value)
 
         self.ORIGINAL_DECK = self.shoe[:]
 
