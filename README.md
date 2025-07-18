@@ -97,10 +97,6 @@ BlackJack/
 The game can be configured using the `config.toml` file. Key settings include:
 
 - **Deck settings**: Number of decks, shuffle timing
-- **Betting limits**: Minimum and maximum bet amounts
-- **Game rules**: Dealer behavior, available player options
-- **Bot settings**: Strategy options, simulation modes
-- **Display**: Visual settings and logging options
 
 ## Development
 
