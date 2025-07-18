@@ -1,6 +1,7 @@
 from player import Player
 from dealer import Dealer
 from logic import Logic
+from config import Config
 
 
 def main():
@@ -11,7 +12,7 @@ def main():
     # Welcome the player
     game.welcome()
 
-    while game.IN_WHOLE_GAME:
+    while game.IN_GAME:
         # Ask for bet
         game.bet()
 
@@ -22,7 +23,7 @@ def main():
         game.show_balance()
 
         # LOOP: Player makes decision
-        while game.IN_GAME:
+        while game.IN_ROUND:
             # Check blackjack
             if game.player.turn == 1:
                 game.check_blackjack()

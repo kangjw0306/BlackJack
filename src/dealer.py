@@ -28,7 +28,6 @@ class Number(Enum):
     KING = 'K'
 
 
-
 class Dealer(Actor):
     def __init__(self):
         super().__init__()
